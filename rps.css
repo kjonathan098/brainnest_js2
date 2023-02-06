@@ -1,0 +1,121 @@
+body {
+	font-family: 'Inter', 'Franklin Gothic Medium', 'Arial Narrow',
+		Arial, sans-serif;
+	cursor: url('/media/alien.png'), auto;
+}
+#main {
+	/* background-color: red; */
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+}
+
+#center {
+	/* background-color: aqua; */
+	width: 918px;
+	display: flex;
+	flex-direction: column;
+}
+
+.scores {
+	/* background-color: blue; */
+	display: flex;
+	justify-content: space-around;
+	padding: 10px;
+	flex-grow: 0;
+}
+.score_player {
+	/* background-color: pink; */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.score_player h2 {
+	margin: 0 0 10px 0;
+	font-size: 50px;
+}
+
+.score_player p {
+	margin: 0px;
+	font-size: 25px;
+}
+
+.graphics {
+	/* background-color: red; */
+	height: 60%;
+	align-items: center;
+	justify-content: space-between;
+	display: flex;
+	overflow: hidden;
+	height: 40%;
+}
+
+.graphics img {
+	width: 276px;
+	height: auto;
+	display: block;
+}
+
+#fight_btn:hover {
+	cursor: pointer;
+}
+.selections {
+	/* background-color: green; */
+	flex-grow: 1;
+	max-height: 208px;
+}
+
+.cta_title {
+	/* background-color: brown; */
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	padding: 10px;
+}
+
+.cta_title h2 {
+	margin: 0px;
+	font-size: 30px;
+}
+
+.selection_elements {
+	/* background-color: purple; */
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	height: 100%;
+	padding: 5px;
+}
+
+.element_container {
+	/* background-color: red; */
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	overflow: hidden;
+	align-items: center;
+}
+
+.element_container:hover {
+	outline: 5px goldenrod solid;
+	cursor: pointer;
+}
+
+.element_container.selected {
+	background-color: goldenrod;
+	outline: 5px goldenrod solid;
+}
+
+.selection_elements h3 {
+	font-size: 30px;
+	font-weight: 800;
+}
+
+.selection_elements img {
+	height: 75px;
+	width: auto;
+	rotate: 257deg;
+}

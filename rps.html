@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Rock, Paper , Scissors</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			rel="preconnect"
+			href="https://fonts.gstatic.com"
+			crossorigin
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800;900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="/reset.css" />
+		<link rel="stylesheet" href="/rps.css" />
+	</head>
+	<body>
+		<div id="main">
+			<div id="center">
+				<section class="scores">
+					<div class="score_player">
+						<h2>Human</h2>
+						<p id="player_score">0</p>
+					</div>
+
+					<div class="score_player">
+						<h2>Computer</h2>
+						<p id="computer_score">0</p>
+					</div>
+				</section>
+
+				<section class="graphics">
+					<img src="./media/human_basic_hand.svg" alt="" />
+
+					<img
+						src="https://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/32432fdfaea24c8.png"
+						alt=""
+						id="fight_btn"
+					/>
+
+					<img src="./media/computer_basic_hand copy.svg" alt="" />
+				</section>
+
+				<section class="selections">
+					<div class="cta_title">
+						<h2>SELECT WEAPON &#8595;</h2>
+					</div>
+
+					<div class="selection_elements">
+						<div class="element_container" id="player_rock">
+							<h3>Rock</h3>
+							<img src="/media/human_rock.svg" alt="" />
+						</div>
+						<div class="element_container" id="player_paper">
+							<h3>Paper</h3>
+							<img src="/media/human_paper.svg" alt="" />
+						</div>
+						<div
+							class="element_container scissors"
+							id="player_scissors"
+						>
+							<h3>Scissors</h3>
+							<img src="/media/human_scissors.svg" alt="" />
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		<script src="/rps.js"></script>
+	</body>
+</html>
