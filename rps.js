@@ -4,12 +4,17 @@ const playerScissor = document.getElementById('player_scissors')
 const fightBtn = document.getElementById('fight_btn')
 const playerScore = document.getElementById('player_score')
 const computerScore = document.getElementById('computer_score')
+const roundWinnerPrompt = document.querySelector(
+	'#round_winner_prompt'
+)
+const mainDiv = document.getElementById('main')
 
+console.log(roundWinnerPrompt)
 // buttons and their values
 const playerButtons = [
 	{ button: playerRock, value: 'rock' },
 	{ button: playerPaper, value: 'paper' },
-	{ button: playerScissor, value: 'scissor' },
+	{ button: playerScissor, value: 'scissors' },
 ]
 
 //current player selection
@@ -22,10 +27,10 @@ let numberOfRounds = 0
 
 function makePlayerSelection({ button, value }) {
 	if (playerSelectionNode) {
-		playerSelectionNode.classList.remove('selected')
+		playerSelectionNode.classList.toggle('selected')
 	}
 
-	button.classList.add('selected')
+	button.classList.toggle('selected')
 	playerSelectionValue = value
 	playerSelectionNode = button
 }
@@ -62,16 +67,51 @@ const beats = {
 const playRound = (playerSelection, computerSelection) => {
 	numberOfRounds++
 	if (playerSelection === computerSelection) {
-		return `Draw! Both played ${playerSelection}`
+		return 0
 	} else if (beats[playerSelection] === computerSelection) {
-		playerWins++
-		playerScore.innerText = playerWins
-		return `You Win! ${playerSelection} beats ${computerSelection}`
+		return 1
 	} else {
-		computerWins++
-		computerScore.innerText = computerWins
-		return `You Lose! ${computerSelection} beats ${playerSelection}`
+		return 2
 	}
+}
+
+const announceResult = (roundResults, computerSelection) => {
+	let message = undefined
+	switch (roundResults) {
+		case 0:
+			message = `Draw! Both played ${playerSelectionValue}`
+			break
+		case 1:
+			playerWins++
+			playerScore.innerText = playerWins
+			message = `You Win! ${playerSelectionValue} beats ${computerSelection}`
+			break
+		case 2:
+			computerWins++
+			computerScore.innerText = computerWins
+			message = `You Lose! ${computerSelection} beats ${playerSelectionValue}`
+	}
+
+	// check if there is a game winner
+	if (playerWins === 5) {
+		console.log('youre the winner!')
+		return
+	}
+
+	if (computerWins === 5) {
+		console.log('you looses ')
+		return
+	}
+
+	// anounce round result
+
+	roundWinnerPrompt.classList.toggle('prompActive')
+	mainDiv.classList.toggle('prompActive')
+
+	setTimeout(() => {
+		roundWinnerPrompt.classList.toggle('prompActive')
+		mainDiv.classList.toggle('prompActive')
+	}, 2000)
 }
 
 fightBtn.addEventListener('click', () => {
@@ -80,9 +120,12 @@ fightBtn.addEventListener('click', () => {
 		console.log('please select weapon')
 		return
 	}
+
+	let computerSelection = computerSelect()
 	const roundResults = playRound(
 		playerSelectionValue,
-		computerSelect()
+		computerSelection
 	)
 	console.log(roundResults)
+	announceResult(roundResults, computerSelection)
 })

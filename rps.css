@@ -2,6 +2,14 @@ body {
 	font-family: 'Inter', 'Franklin Gothic Medium', 'Arial Narrow',
 		Arial, sans-serif;
 	cursor: url('/media/alien.png'), auto;
+	background: rgb(13, 13, 190);
+	background: radial-gradient(
+		circle,
+		rgba(13, 13, 190, 1) 0%,
+		rgba(9, 9, 121, 1) 41%,
+		rgba(2, 0, 36, 1) 100%
+	);
+	color: #fff;
 }
 #main {
 	/* background-color: red; */
@@ -9,13 +17,18 @@ body {
 	height: 100vh;
 	display: flex;
 	justify-content: center;
+	/* opacity: 0.1; */
+}
+
+#main.prompActive {
+	opacity: 0.1;
 }
 
 #center {
-	/* background-color: aqua; */
 	width: 918px;
 	display: flex;
 	flex-direction: column;
+	position: relative;
 }
 
 .scores {
@@ -35,6 +48,10 @@ body {
 .score_player h2 {
 	margin: 0 0 10px 0;
 	font-size: 50px;
+	color: #fff;
+	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff,
+		0 0 42px #13fe65, 0 0 82px #13fe65, 0 0 92px #13fe65,
+		0 0 102px #13fe65, 0 0 151px #13fe65;
 }
 
 .score_player p {
@@ -99,14 +116,22 @@ body {
 	align-items: center;
 }
 
-.element_container:hover {
+/* .element_container:hover {
 	outline: 5px goldenrod solid;
 	cursor: pointer;
+} */
+
+.element_container:hover {
+	outline: 0.2rem solid #fff;
+	/* padding: 0.4em; */
+	box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe,
+		0 0 0.8rem #bc13fe, 0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
 }
 
 .element_container.selected {
-	background-color: goldenrod;
-	outline: 5px goldenrod solid;
+	background-color: #bc13fe;
+	box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe,
+		0 0 0.8rem #bc13fe, 0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
 }
 
 .selection_elements h3 {
@@ -118,4 +143,33 @@ body {
 	height: 75px;
 	width: auto;
 	rotate: 257deg;
+}
+
+#round_winner_prompt {
+	display: none;
+}
+
+#round_winner_prompt.prompActive {
+	width: 568px;
+	height: 240px;
+	position: absolute;
+	top: 170px;
+	left: 450px;
+	z-index: 4;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	padding: 10px;
+	background: rgb(13, 13, 190);
+	background: radial-gradient(
+		circle,
+		rgba(13, 13, 190, 1) 0%,
+		rgba(9, 9, 121, 1) 41%,
+		rgba(2, 0, 36, 1) 100%
+	);
+}
+
+.round_graphics img {
+	width: 200px;
 }
