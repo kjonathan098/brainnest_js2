@@ -3,22 +3,16 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0"
-		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Rock, Paper , Scissors</title>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link
-			rel="preconnect"
-			href="https://fonts.gstatic.com"
-			crossorigin
-		/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800;900&display=swap"
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="/reset.css" />
+		<link rel="stylesheet" href="/animation.css" />
 		<link rel="stylesheet" href="/rps.css" />
 	</head>
 	<body>
@@ -37,15 +31,13 @@
 				</section>
 
 				<section class="graphics">
-					<img src="./media/human_basic_hand.svg" alt="" />
-
+					<img src="./media/human_basic_hand.svg" alt="" class="up_down" />
 					<img
 						src="https://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/32432fdfaea24c8.png"
 						alt=""
 						id="fight_btn"
 					/>
-
-					<img src="./media/computer_basic_hand copy.svg" alt="" />
+					<img src="./media/computer_basic_hand copy.svg" alt="" class="breathing" />
 				</section>
 
 				<section class="selections">
@@ -62,10 +54,7 @@
 							<h3>Paper</h3>
 							<img src="/media/human_paper.svg" alt="" />
 						</div>
-						<div
-							class="element_container scissors"
-							id="player_scissors"
-						>
+						<div class="element_container scissors" id="player_scissors">
 							<h3>Scissors</h3>
 							<img src="/media/human_scissors.svg" alt="" />
 						</div>
@@ -73,13 +62,13 @@
 				</section>
 			</div>
 		</div>
+
 		<section id="round_winner_prompt">
-			<h2>You win round</h2>
-			<div class="round_graphics">
-				<img src="./media/human_paper.svg" alt="" />
-				<img src="./media/computer_basic_hand copy.svg" alt="" />
+			<div id="prompt_graphics_contianer">
+				<img id="human_round_graphic" src="./media/human_paper.svg" alt="" />
+				<img id="computer_round_graphic" src="./media/computer_basic_hand copy.svg" alt="" />
 			</div>
-			<p>Rock beats paper</p>
+			<p id="winner_prompt_results">Rock beats paper</p>
 		</section>
 		<script src="/rps.js"></script>
 	</body>
