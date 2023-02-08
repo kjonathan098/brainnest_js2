@@ -1,12 +1,6 @@
 body {
 	font-family: 'Inter', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-	background: rgb(13, 13, 190);
-	background: radial-gradient(
-		circle,
-		rgba(13, 13, 190, 1) 0%,
-		rgba(9, 9, 121, 1) 41%,
-		rgba(2, 0, 36, 1) 100%
-	);
+	background: rgb(0, 0, 0);
 	color: #fff;
 }
 #main {
@@ -73,11 +67,16 @@ body {
 	display: block;
 }
 
+#fight_btn {
+	box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe,
+		0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
+}
+
 #fight_btn:hover {
 	cursor: pointer;
 }
 
-.selections {
+.weapons_section {
 	/* background-color: green; */
 	flex-grow: 1;
 	max-height: 208px;
@@ -91,11 +90,14 @@ body {
 	padding: 10px;
 }
 
-.cta_title h2 {
-	margin: 0px;
-	font-size: 30px;
+#choose_weapon {
+	width: 600px;
+	margin-bottom: -50px;
+	margin-right: -90px;
 }
-
+#neon_arrows {
+	height: 30px;
+}
 .selection_elements {
 	/* background-color: purple; */
 	display: flex;
