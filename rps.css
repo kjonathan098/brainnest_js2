@@ -24,7 +24,7 @@ body {
 	position: relative;
 }
 
-.scores {
+.scores_section {
 	/* background-color: blue; */
 	display: flex;
 	justify-content: space-around;
@@ -98,7 +98,7 @@ body {
 #neon_arrows {
 	height: 30px;
 }
-.selection_elements {
+.weapons_buttons_main {
 	/* background-color: purple; */
 	display: flex;
 	align-items: center;
@@ -107,7 +107,7 @@ body {
 	padding: 5px;
 }
 
-.element_container {
+.weapon_container {
 	/* background-color: red; */
 	height: 100%;
 	display: flex;
@@ -118,37 +118,37 @@ body {
 	overflow: hidden;
 }
 
-/* .element_container:hover {
+/* .weapon_container:hover {
 	outline: 5px goldenrod solid;
 	cursor: pointer;
 } */
 
-.element_container:hover {
+.weapon_container:hover {
 	outline: 0.2rem solid #fff;
 	/* padding: 0.4em; */
 	box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe,
 		0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
 }
-.element_container:hover img {
+.weapon_container:hover img {
 	scale: 200%;
 }
 
-.element_container.selected img {
+.weapon_container.selected img {
 	scale: 200%;
 }
 
-.element_container.selected {
+.weapon_container.selected {
 	background-color: #bc13fe;
 	box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe,
 		0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
 }
 
-.selection_elements h3 {
+.weapons_buttons_main h3 {
 	font-size: 30px;
 	font-weight: 800;
 }
 
-.selection_elements img {
+.weapons_buttons_main img {
 	height: 75px;
 	width: auto;
 	rotate: 257deg;
@@ -160,7 +160,7 @@ body {
 
 #round_winner_prompt.prompActive {
 	width: 568px;
-	height: 240px;
+	height: 300px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -170,13 +170,13 @@ body {
 	align-items: center;
 	gap: 10px;
 	padding: 10px;
-	background: rgb(13, 13, 190);
-	background: radial-gradient(
+	background: rgb(0, 0, 0);
+	/* background: radial-gradient(
 		circle,
 		rgba(13, 13, 190, 1) 0%,
 		rgba(9, 9, 121, 1) 41%,
 		rgba(2, 0, 36, 1) 100%
-	);
+	); */
 	justify-content: space-around;
 	border: 1px solid #fff;
 	border-radius: 50px;
@@ -187,6 +187,11 @@ body {
 
 #prompt_graphics_contianer img {
 	width: 200px;
+}
+
+#game_winner_title {
+	display: flex;
+	align-items: center;
 }
 
 #reset_button {
@@ -204,6 +209,10 @@ body {
 
 #reset_button:hover {
 	cursor: pointer;
+}
+
+#match_over_graphic {
+	height: 100px;
 }
 
 @keyframes pulsate {

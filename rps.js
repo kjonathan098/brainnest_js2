@@ -10,6 +10,9 @@ const winnerPromptTitle = document.getElementById('winner_prompt_title')
 const humanPromptGraphicDiv = document.getElementById('human_round_graphic')
 const computerPromptGraphicDiv = document.getElementById('computer_round_graphic')
 const roundPromptResults = document.getElementById('winner_prompt_results')
+const matchWinnerTitleDiv = document.getElementById('game_winner_title')
+
+console.log(playerRock)
 
 const humanHandsGraphics = [
 	{ name: 'rock', src: `./media/human_rock.svg` },
@@ -31,38 +34,142 @@ const playerButtons = [
 ]
 
 //current player selection
-let playerSelectionValue = undefined
-let playerSelectionNode = undefined
+let playerSelectedWeapon = undefined
+let playerSelectedWeaponNode = undefined
 
-let computerSelection = undefined
+let computerSelectedWeapon = undefined
 
-let playerWins = 0
-let computerWins = 0
-let numberOfRounds = 0
+let playerRoundWins = 0
+let computerRoundWins = 0
+let totalRounds = 0
 
 let roundResults = undefined
 let roundMessage = undefined
-let gameWinner = false
+let matchWinner = false
 
-let humanWinnerText = `Winner Winner Chicken Dinner! You win ${playerWins} to ${computerWins}`
-let computerWinnerText = `GAME OVER! You lose ${playerWins} to ${computerWins}`
-
-function makePlayerSelection({ button, value }) {
-	if (playerSelectionNode) {
-		playerSelectionNode.classList.toggle('selected')
-	}
-
-	button.classList.toggle('selected')
-	playerSelectionValue = value
-	playerSelectionNode = button
-}
+const matchOverGraphic = document.createElement('img')
+matchOverGraphic.id = 'match_over_graphic'
 
 // add listener to each button in array
-playerButtons.forEach((selection) => {
-	selection.button.addEventListener('click', () => {
-		makePlayerSelection(selection)
+
+playerButtons.forEach((weapon) => {
+	weapon.button.addEventListener('click', () => {
+		if (playerSelectedWeaponNode) {
+			playerSelectedWeaponNode.classList.toggle('selected')
+		}
+
+		weapon.button.classList.toggle('selected')
+		playerSelectedWeapon = weapon.value
+		playerSelectedWeaponNode = weapon.button
 	})
 })
+
+const createResetButton = () => {
+	const resetButton = document.createElement('button')
+	resetButton.id = 'reset_button'
+	resetButton.innerText = 'play again'
+	roundWinnerPrompt.appendChild(resetButton)
+
+	resetButton.addEventListener('click', () => {
+		playerSelectedWeapon = undefined
+		computerSelectedWeapon = undefined
+
+		playerRoundWins = 0
+		computerRoundWins = 0
+		totalRounds = 0
+
+		roundResults = undefined
+		roundMessage = undefined
+		matchWinner = false
+
+		playerScore.innerText = 0
+		computerScore.innerText = 0
+
+		playerSelectedWeaponNode.classList.toggle('selected')
+		playerSelectedWeaponNode = undefined
+
+		matchWinnerTitleDiv.removeChild(matchOverGraphic)
+		roundWinnerPrompt.removeChild(resetButton)
+		roundWinnerPrompt.classList.toggle('prompActive')
+		mainDiv.classList.toggle('prompActive')
+	})
+}
+
+const announceResults = () => {
+	const humanHandImg = humanHandsGraphics.find(
+		(humanHandsGraphics) => humanHandsGraphics.name === playerSelectedWeapon
+	)
+	const computerHandImg = computerHandsGraphics.find(
+		(computerHandsGraphics) => computerHandsGraphics.name === computerSelectedWeapon
+	)
+
+	humanPromptGraphicDiv.src = humanHandImg.src
+	computerPromptGraphicDiv.src = computerHandImg.src
+
+	roundWinnerPrompt.classList.toggle('prompActive')
+	mainDiv.classList.toggle('prompActive')
+
+	if (matchWinner) {
+		matchWinnerTitleDiv.appendChild(matchOverGraphic)
+
+		createResetButton()
+		if (playerRoundWins === 5) {
+			matchOverGraphic.src = '/media/chicken_neon.gif'
+			roundPromptResults.innerText = `Winner Winner Chicken Dinner! You win ${playerRoundWins} to ${computerRoundWins}`
+			return
+		}
+		matchOverGraphic.src = '/media/game_over_neon.gif'
+		roundPromptResults.innerText = `You lose ${playerRoundWins} to ${computerRoundWins}`
+		return
+	}
+
+	roundPromptResults.innerText = roundMessage
+
+	setTimeout(() => {
+		roundWinnerPrompt.classList.toggle('prompActive')
+		mainDiv.classList.toggle('prompActive')
+	}, 2000)
+}
+
+const logRoundResults = () => {
+	switch (roundResults) {
+		case 0:
+			roundMessage = `Draw! Both played ${playerSelectedWeapon}`
+			break
+		case 1:
+			playerRoundWins++
+			playerScore.innerText = playerRoundWins
+			roundMessage = `You Win! ${playerSelectedWeapon} beats ${computerSelectedWeapon}`
+			break
+		case 2:
+			computerRoundWins++
+			computerScore.innerText = computerRoundWins
+			roundMessage = `You Lose! ${computerSelectedWeapon} beats ${playerSelectedWeapon}`
+	}
+
+	// check if there is a game winner
+	if (playerRoundWins === 5 || computerRoundWins === 5) {
+		matchWinner = !matchWinner
+	}
+}
+
+const playRound = () => {
+	totalRounds++
+
+	const beats = {
+		rock: 'scissors',
+		scissors: 'paper',
+		paper: 'rock',
+	}
+
+	if (playerSelectedWeapon === computerSelectedWeapon) {
+		return 0
+	} else if (beats[playerSelectedWeapon] === computerSelectedWeapon) {
+		return 1
+	} else {
+		return 2
+	}
+}
 
 function computerSelect() {
 	let computerPick = Math.floor(Math.random() * 3)
@@ -77,122 +184,19 @@ function computerSelect() {
 		case 2:
 			computerPick = 'paper'
 	}
-	computerSelection = computerPick
+	computerSelectedWeapon = computerPick
 	return
 }
 
-const beats = {
-	rock: 'scissors',
-	scissors: 'paper',
-	paper: 'rock',
-}
-
-const playRound = () => {
-	numberOfRounds++
-	if (playerSelectionValue === computerSelection) {
-		return 0
-	} else if (beats[playerSelectionValue] === computerSelection) {
-		return 1
-	} else {
-		return 2
-	}
-}
-
-const createResetButton = () => {
-	const resetButton = document.createElement('button')
-	resetButton.id = 'reset_button'
-	resetButton.innerText = 'play again'
-	resetButton.addEventListener('click', () => {
-		playerSelectionValue = undefined
-
-		computerSelection = undefined
-
-		playerWins = 0
-		computerWins = 0
-		numberOfRounds = 0
-
-		roundResults = undefined
-		roundMessage = undefined
-		gameWinner = false
-
-		playerSelectionNode.classList.toggle('selected')
-		playerSelectionNode = undefined
-		playerScore.innerText = 0
-		computerScore.innerText = 0
-		roundWinnerPrompt.removeChild(resetButton)
-		roundWinnerPrompt.classList.toggle('prompActive')
-		mainDiv.classList.toggle('prompActive')
-	})
-
-	roundWinnerPrompt.appendChild(resetButton)
-}
-
-const activatePrompt = () => {
-	const humanHandImg = humanHandsGraphics.find(
-		(humanHandsGraphics) => humanHandsGraphics.name === playerSelectionValue
-	)
-	const computerHandImg = computerHandsGraphics.find(
-		(computerHandsGraphics) => computerHandsGraphics.name === computerSelection
-	)
-
-	humanPromptGraphicDiv.src = humanHandImg.src
-	computerPromptGraphicDiv.src = computerHandImg.src
-
-	if (gameWinner) {
-		roundWinnerPrompt.classList.toggle('prompActive')
-		mainDiv.classList.toggle('prompActive')
-		createResetButton()
-		if (playerWins === 5)
-			return (roundPromptResults.innerText = `Winner Winner Chicken Dinner! You win ${playerWins} to ${computerWins}`)
-		roundPromptResults.innerText = `GAME OVER! You lose ${playerWins} to ${computerWins}`
-		return
-	}
-
-	roundPromptResults.innerText = roundMessage
-
-	roundWinnerPrompt.classList.toggle('prompActive')
-	mainDiv.classList.toggle('prompActive')
-
-	setTimeout(() => {
-		roundWinnerPrompt.classList.toggle('prompActive')
-		mainDiv.classList.toggle('prompActive')
-	}, 2000)
-}
-
-const announceResult = () => {
-	switch (roundResults) {
-		case 0:
-			roundMessage = `Draw! Both played ${playerSelectionValue}`
-			break
-		case 1:
-			playerWins++
-			playerScore.innerText = playerWins
-			roundMessage = `You Win! ${playerSelectionValue} beats ${computerSelection}`
-			break
-		case 2:
-			computerWins++
-			computerScore.innerText = computerWins
-			roundMessage = `You Lose! ${computerSelection} beats ${playerSelectionValue}`
-	}
-
-	// check if there is a game winner
-	if (playerWins === 5 || computerWins === 5) {
-		console.log('youre the winner!')
-		gameWinner = !gameWinner
-	}
-	// anounce round result
-
-	activatePrompt()
-}
-
 fightBtn.addEventListener('click', () => {
-	if (!playerSelectionValue) {
+	if (!playerSelectedWeapon) {
 		// give feedback to user!
-		console.log('please select weapon')
+		alert('please select weapon')
 		return
 	}
 
 	computerSelect()
 	roundResults = playRound()
-	announceResult(roundResults, computerSelection)
+	logRoundResults()
+	announceResults()
 })

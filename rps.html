@@ -11,14 +11,17 @@
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800;900&display=swap"
 			rel="stylesheet"
 		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap"
+			rel="stylesheet"
+		/>
 		<link rel="stylesheet" href="/reset.css" />
-		<link rel="stylesheet" href="/animation.css" />
 		<link rel="stylesheet" href="/rps.css" />
 	</head>
 	<body>
 		<div id="main">
 			<div id="center">
-				<section class="scores">
+				<section class="scores_section">
 					<div class="score_player">
 						<h2>Human</h2>
 						<p id="player_score">0</p>
@@ -46,16 +49,16 @@
 						<img src="/media/neon_down_arrows.gif" alt="" id="neon_arrows" />
 					</div>
 
-					<div class="selection_elements">
-						<div class="element_container" id="player_rock">
+					<div class="weapons_buttons_main">
+						<div class="weapon_container" id="player_rock">
 							<h3>Rock</h3>
 							<img src="/media/human_rock.svg" alt="" />
 						</div>
-						<div class="element_container" id="player_paper">
+						<div class="weapon_container" id="player_paper">
 							<h3>Paper</h3>
 							<img src="/media/human_paper.svg" alt="" />
 						</div>
-						<div class="element_container scissors" id="player_scissors">
+						<div class="weapon_container" id="player_scissors">
 							<h3>Scissors</h3>
 							<img src="/media/human_scissors.svg" alt="" />
 						</div>
@@ -69,7 +72,9 @@
 				<img id="human_round_graphic" src="./media/human_paper.svg" alt="" />
 				<img id="computer_round_graphic" src="./media/computer_basic_hand copy.svg" alt="" />
 			</div>
-			<h2 id="winner_prompt_results"></h2>
+			<div id="game_winner_title">
+				<h2 id="winner_prompt_results"></h2>
+			</div>
 		</section>
 
 		<script src="/rps.js"></script>
