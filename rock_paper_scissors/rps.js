@@ -114,11 +114,11 @@ const announceResults = () => {
 
 		createResetButton()
 		if (playerRoundWins === 5) {
-			matchOverGraphic.src = '/media/chicken_neon.gif'
+			matchOverGraphic.src = './media/chicken_neon.gif'
 			roundPromptResults.innerText = `Winner Winner Chicken Dinner! You win ${playerRoundWins} to ${computerRoundWins}`
 			return
 		}
-		matchOverGraphic.src = '/media/game_over_neon.gif'
+		matchOverGraphic.src = './media/game_over_neon.gif'
 		roundPromptResults.innerText = `You lose ${playerRoundWins} to ${computerRoundWins}`
 		return
 	}
