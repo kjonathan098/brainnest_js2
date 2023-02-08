@@ -20,6 +20,7 @@ body {
 
 #main.prompActive {
 	opacity: 0.1;
+	filter: blur(10px);
 }
 
 #center {
@@ -75,6 +76,7 @@ body {
 #fight_btn:hover {
 	cursor: pointer;
 }
+
 .selections {
 	/* background-color: green; */
 	flex-grow: 1;
@@ -111,6 +113,7 @@ body {
 	justify-content: space-between;
 	overflow: hidden;
 	align-items: center;
+	overflow: hidden;
 }
 
 /* .element_container:hover {
@@ -123,6 +126,13 @@ body {
 	/* padding: 0.4em; */
 	box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe,
 		0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
+}
+.element_container:hover img {
+	scale: 200%;
+}
+
+.element_container.selected img {
+	scale: 200%;
 }
 
 .element_container.selected {
@@ -150,7 +160,6 @@ body {
 	width: 568px;
 	height: 240px;
 	position: absolute;
-	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -166,8 +175,43 @@ body {
 		rgba(9, 9, 121, 1) 41%,
 		rgba(2, 0, 36, 1) 100%
 	);
+	justify-content: space-around;
+	border: 1px solid #fff;
+	border-radius: 50px;
+
+	box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe,
+		0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
 }
 
 #prompt_graphics_contianer img {
 	width: 200px;
+}
+
+#reset_button {
+	border: 1px solid #fff;
+	padding: 5px;
+	border-radius: 50px;
+	width: 100px;
+	color: #fff;
+	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #f09, 0 0 82px #f09,
+		0 0 92px #f09, 0 0 102px #f09, 0 0 151px #f09;
+	box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe,
+		0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
+	animation: pulsate 1.5s infinite alternate;
+}
+
+#reset_button:hover {
+	cursor: pointer;
+}
+
+@keyframes pulsate {
+	100% {
+		text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #f09, 0 0 82px #f09,
+			0 0 92px #f09, 0 0 102px #f09, 0 0 151px #f09;
+	}
+
+	0% {
+		text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #f09, 0 0 82px #f09,
+			0 0 92px #f09, 0 0 102px #f09, 0 0 151px #f09;
+	}
 }

@@ -42,6 +42,10 @@ let numberOfRounds = 0
 
 let roundResults = undefined
 let roundMessage = undefined
+let gameWinner = false
+
+let humanWinnerText = `Winner Winner Chicken Dinner! You win ${playerWins} to ${computerWins}`
+let computerWinnerText = `GAME OVER! You lose ${playerWins} to ${computerWins}`
 
 function makePlayerSelection({ button, value }) {
 	if (playerSelectionNode) {
@@ -94,6 +98,35 @@ const playRound = () => {
 	}
 }
 
+const createResetButton = () => {
+	const resetButton = document.createElement('button')
+	resetButton.id = 'reset_button'
+	resetButton.innerText = 'play again'
+	resetButton.addEventListener('click', () => {
+		playerSelectionValue = undefined
+
+		computerSelection = undefined
+
+		playerWins = 0
+		computerWins = 0
+		numberOfRounds = 0
+
+		roundResults = undefined
+		roundMessage = undefined
+		gameWinner = false
+
+		playerSelectionNode.classList.toggle('selected')
+		playerSelectionNode = undefined
+		playerScore.innerText = 0
+		computerScore.innerText = 0
+		roundWinnerPrompt.removeChild(resetButton)
+		roundWinnerPrompt.classList.toggle('prompActive')
+		mainDiv.classList.toggle('prompActive')
+	})
+
+	roundWinnerPrompt.appendChild(resetButton)
+}
+
 const activatePrompt = () => {
 	const humanHandImg = humanHandsGraphics.find(
 		(humanHandsGraphics) => humanHandsGraphics.name === playerSelectionValue
@@ -104,6 +137,16 @@ const activatePrompt = () => {
 
 	humanPromptGraphicDiv.src = humanHandImg.src
 	computerPromptGraphicDiv.src = computerHandImg.src
+
+	if (gameWinner) {
+		roundWinnerPrompt.classList.toggle('prompActive')
+		mainDiv.classList.toggle('prompActive')
+		createResetButton()
+		if (playerWins === 5)
+			return (roundPromptResults.innerText = `Winner Winner Chicken Dinner! You win ${playerWins} to ${computerWins}`)
+		roundPromptResults.innerText = `GAME OVER! You lose ${playerWins} to ${computerWins}`
+		return
+	}
 
 	roundPromptResults.innerText = roundMessage
 
@@ -135,8 +178,7 @@ const announceResult = () => {
 	// check if there is a game winner
 	if (playerWins === 5 || computerWins === 5) {
 		console.log('youre the winner!')
-		announceChampion()
-		return
+		gameWinner = !gameWinner
 	}
 	// anounce round result
 

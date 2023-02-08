@@ -1,6 +1,6 @@
 .breathing {
 	-webkit-animation: breathing 2s ease-out infinite normal;
-	animation: breathing 2s ease-out infinite normal;
+	animation: breathing 10s ease-out infinite normal;
 }
 
 @-webkit-keyframes breathing {
@@ -52,7 +52,7 @@
 }
 
 .up_down {
-	animation: up-down linear 4s;
+	animation: up-down linear 10s;
 	animation-iteration-count: infinite;
 	transform-origin: 50% 50%;
 	-webkit-animation: up-down linear 4s;
