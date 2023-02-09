@@ -30,6 +30,7 @@
 	font-size: 60px;
 	overflow: hidden;
 	box-sizing: border-box;
+	position: relative;
 }
 #calculator_keys {
 	background-color: rgb(234, 39, 39);
@@ -76,4 +77,16 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+#display_main {
+	position: relative;
+}
+#display_feedback {
+	background-color: transparent;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	right: 0px;
+	top: 0px;
 }

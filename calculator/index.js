@@ -3,168 +3,24 @@ const buttonsOperators = document.querySelectorAll('.operator')
 const calculatorDisplay = document.getElementById('display')
 const buttonsSpecials = document.querySelectorAll('.special')
 const deleteLastNumber = document.getElementById('delete')
+const displayFeedback = document.getElementById('display_feedback')
 
 let firstValue = undefined
 let secondValue = undefined
 let operation = undefined
-let decimale = false
-
-const logNumbers = (value) => {
-	if (!operation) {
-		if (!firstValue) {
-			firstValue = value
-			setDisplay(firstValue)
-			return
-		}
-		firstValue += value
-		setDisplay(firstValue)
-		return
-	}
-
-	if (!secondValue) {
-		secondValue = value
-		setDisplay(secondValue)
-		return
-	}
-	secondValue += value
-	setDisplay(secondValue)
-	return
-}
-
-const operateTwo = (operator) => {
-	console.log(operator, 'hi')
-	if (operation) {
-		const newValue = operate(operation, firstValue, secondValue)
-		console.log(newValue)
-		firstValue = newValue
-		secondValue = undefined
-		operation = operator
-		setDisplay(newValue)
-		return
-	}
-	operation = operator
-}
-
-const work = (value) => {
-	if (value === 'Escape') {
-		firstValue = undefined
-		secondValue = undefined
-		operation = undefined
-		setDisplay(0)
-		return
-	} else if (value === 'Enter') {
-		if (!firstValue || !secondValue || !operation) {
-			return
-		}
-		const newValue = operate(operation, firstValue, secondValue)
-		firstValue = newValue.toString()
-		secondValue = undefined
-		operation = undefined
-		setDisplay(newValue)
-		return
-	} else if (operation) {
-		const newValue = secondValue.slice(0, secondValue.length - 1)
-		secondValue = newValue
-		setDisplay(newValue)
-		return
-	}
-	const newValue = firstValue.slice(0, firstValue.length - 1)
-	firstValue = newValue
-	setDisplay(newValue)
-}
-
-// buttonsSpecials.forEach((button) => {
-// 	button.addEventListener('click', () => {
-// 		// pressed reset
-// 		if (button.id === 'reset') {
-// 			firstValue = undefined
-// 			secondValue = undefined
-// 			operation = undefined
-// 			setDisplay(0)
-// 			return
-// 		}
-
-// 		// pressed equal
-// 		// check that all values are filled
-// 		if (!firstValue || !secondValue || !operation) {
-// 			return
-// 		}
-// 		const newValue = operate(operation, firstValue, secondValue)
-// 		firstValue = newValue
-// 		secondValue = undefined
-// 		operation = undefined
-// 		setDisplay(newValue)
-// 		return
-// 	})
-// })
-
-buttonsSpecials.forEach((button) => {
-	button.addEventListener('click', () => {
-		work(button.id)
-	})
-})
+let enter = false
+let decimal = false
 
 const setDisplay = (element) => {
 	calculatorDisplay.innerText = element
 }
 
-const checkForDecimals = (value) => {
-	return value.includes('.')
+const setDisplayFeedback = () => {
+	displayFeedback.style.backgroundColor = 'green'
+	setTimeout(() => {
+		displayFeedback.style.backgroundColor = 'transparent'
+	}, 100)
 }
-
-// add number
-// buttonsNumbers.forEach((button) => {
-// 	button.addEventListener('click', () => {
-// 		// check if an operation exists
-// 		if (!operation) {
-// 			if (!firstValue) {
-// 				firstValue = button.innerText
-// 				setDisplay(firstValue)
-// 				return
-// 			}
-
-// 			firstValue += button.innerText
-// 			setDisplay(firstValue)
-// 			return
-// 		}
-// 		// if operation exist log new event in second Value
-// 		if (!secondValue) {
-// 			secondValue = button.innerText
-// 			setDisplay(secondValue)
-// 			return
-// 		}
-// 		secondValue += button.innerText
-// 		setDisplay(secondValue)
-// 		return
-// 	})
-// })
-
-buttonsNumbers.forEach((button) => {
-	button.addEventListener('click', () => {
-		logNumbers(button.innerText)
-	})
-})
-
-// buttonsOperators.forEach((operator) => {
-// 	operator.addEventListener('click', () => {
-// 		// check if an operator exist
-// 		if (operation) {
-// 			const newValue = operate(operation, firstValue, secondValue)
-// 			console.log(newValue)
-// 			firstValue = newValue
-// 			secondValue = undefined
-// 			operation = operator.innerText
-// 			setDisplay(newValue)
-// 			return
-// 		}
-// 		operation = operator.innerText
-// 	})
-// })
-buttonsOperators.forEach((operator) => {
-	operator.addEventListener('click', () => {
-		operateTwo(operator.innerText)
-	})
-})
 
 const add = (num1, num2) => {
 	return num1 + num2
@@ -190,7 +46,6 @@ const operate = (operator, num1, num2) => {
 	num1 = parseFloat(num1)
 	num2 = parseFloat(num2)
 	let result = undefined
-	console.log(num2, 'hello')
 	switch (operator) {
 		case '+':
 			result = add(num1, num2)
@@ -203,7 +58,6 @@ const operate = (operator, num1, num2) => {
 			break
 		case '/':
 			result = divide(num1, num2)
-			console.log(result)
 			break
 		default:
 			break
@@ -214,8 +68,71 @@ const operate = (operator, num1, num2) => {
 	return result
 }
 
-deleteLastNumber.addEventListener('click', () => {
+const logNumbers = (value) => {
+	// reset calculator after enter
+	if (enter) {
+		logSpecialKey('Escape')
+		enter = !enter
+	}
+
+	if (!operation) {
+		if (!firstValue) {
+			firstValue = value
+			setDisplay(firstValue)
+			return
+		}
+		firstValue += value
+		setDisplay(firstValue)
+		return
+	}
+
+	if (!secondValue) {
+		secondValue = value
+		setDisplay(secondValue)
+		return
+	}
+	secondValue += value
+	setDisplay(secondValue)
+	return
+}
+
+const logOperation = (operator) => {
 	if (operation) {
+		const newValue = operate(operation, firstValue, secondValue)
+		firstValue = newValue.toString()
+		secondValue = undefined
+		operation = operator
+		setDisplayFeedback()
+		setDisplay(firstValue)
+		return
+	}
+	setDisplayFeedback()
+	operation = operator
+}
+
+const logSpecialKey = (value) => {
+	if (value === 'Escape') {
+		firstValue = undefined
+		secondValue = undefined
+		operation = undefined
+		setDisplay(0)
+		return
+	} else if (value === 'Enter') {
+		if (!firstValue || !secondValue || !operation) {
+			return
+		}
+
+		const newValue = operate(operation, firstValue, secondValue)
+		firstValue = newValue.toString()
+		secondValue = undefined
+		operation = undefined
+		enter = true
+		setDisplay(firstValue)
+		return
+	}
+	// user clicked on delete
+	// if operation delete from second value
+	else if (operation) {
 		const newValue = secondValue.slice(0, secondValue.length - 1)
 		secondValue = newValue
 		setDisplay(newValue)
@@ -224,6 +141,24 @@ deleteLastNumber.addEventListener('click', () => {
 	const newValue = firstValue.slice(0, firstValue.length - 1)
 	firstValue = newValue
 	setDisplay(newValue)
+	return
+}
+buttonsNumbers.forEach((button) => {
+	button.addEventListener('click', () => {
+		logNumbers(button.innerText)
+	})
+})
+
+buttonsOperators.forEach((operator) => {
+	operator.addEventListener('click', () => {
+		logOperation(operator.innerText)
+	})
+})
+
+buttonsSpecials.forEach((button) => {
+	button.addEventListener('click', () => {
+		logSpecialKey(button.id)
+	})
 })
 
 window.addEventListener('keyup', (e) => {
@@ -232,8 +167,8 @@ window.addEventListener('keyup', (e) => {
 	const specialKeys = ['Backspace', 'Escape', 'Enter']
 
 	if (numberKeys.includes(e.key)) return logNumbers(e.key)
-	if (operationKeys.includes(e.key)) return operateTwo(e.key)
-	if (specialKeys.includes(e.key)) return work(e.key)
+	if (operationKeys.includes(e.key)) return logOperation(e.key)
+	if (specialKeys.includes(e.key)) return logSpecialKey(e.key)
 
 	return
 })
