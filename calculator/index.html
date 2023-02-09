@@ -4,71 +4,43 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="./style.css" />
-		<title>Calculator</title>
+		<link rel="stylesheet" href="/calculator/style.css" />
+		<title>Document</title>
 	</head>
 	<body>
-		<!-- <div id="center">
-			<div id="master_rectangle">
-				<div id="calculator_screen"></div>
-
-				<div id="buttons_master_container">
-					<div id="number_buttons_container">
-						<div class="button" onclick="appendDigit(1)">1</div>
-						<div class="button" onclick="appendDigit(2)">2</div>
-						<div class="button" onclick="appendDigit(3)">3</div>
-						<div class="button" onclick="appendDigit(4)">4</div>
-						<div class="button" onclick="appendDigit(5)">5</div>
-						<div class="button" onclick="appendDigit(6)">6</div>
-						<div class="button" onclick="appendDigit(7)">7</div>
-						<div class="button" onclick="appendDigit(8)">8</div>
-						<div class="button" onclick="appendDigit(9)">9</div>
+		<div id="center">
+			<div id="main_calculator_container">
+				<div id="display">0</div>
+				<div id="calculator_keys">
+					<div class="button_row">
+						<div class="button special" id="Escape">ac</div>
+						<div class="button special" id="Backspace">delete</div>
+						<div class="button operator">%</div>
+						<div class="button operator">/</div>
 					</div>
-
-					<div id="operation_buttons_container">
-						<div class="operation_button">+</div>
-						<div class="operation_button">-</div>
-						<div class="operation_button">*</div>
-						<div class="operation_button">/</div>
-						<div class="operation_button">%</div>
-						<div class="operation_button">c</div>
-						<div class="operation_button">=</div>
+					<div class="button_row">
+						<div class="button number">7</div>
+						<div class="button number">8</div>
+						<div class="button number">9</div>
+						<div class="button operator">*</div>
 					</div>
-				</div>
-			</div>
-		</div> -->
-
-		<div id="container">
-			<div id="display">0</div>
-			<div class="calculatorKeys">
-				<div id="rowOne">
-					<button id="clear">AC</button>
-					<button id="negate">+/-</button>
-					<button id="percent">%</button>
-					<button id="divide">/</button>
-				</div>
-				<div id="rowTwo">
-					<button id="seven">7</button>
-					<button id="eight">8</button>
-					<button id="nine">9</button>
-					<button id="multiply">x</button>
-				</div>
-				<div id="rowThree">
-					<button id="four">4</button>
-					<button id="five">5</button>
-					<button id="six">6</button>
-					<button id="minus">-</button>
-				</div>
-				<div id="rowFour">
-					<button id="one">1</button>
-					<button id="two">2</button>
-					<button id="three">3</button>
-					<button id="plus">+</button>
-				</div>
-				<div id="rowFive">
-					<button id="zero">0</button>
-					<button id="dot">.</button>
-					<button id="equals">=</button>
+					<div class="button_row">
+						<div class="button number">4</div>
+						<div class="button number">5</div>
+						<div class="button number">6</div>
+						<div class="button operator">-</div>
+					</div>
+					<div class="button_row">
+						<div class="button number">1</div>
+						<div class="button number">2</div>
+						<div class="button number">3</div>
+						<div class="button operator">+</div>
+					</div>
+					<div class="button_row three">
+						<div class="button number" id="zero">0</div>
+						<div class="button number">.</div>
+						<div class="button special" id="Enter">=</div>
+					</div>
 				</div>
 			</div>
 		</div>

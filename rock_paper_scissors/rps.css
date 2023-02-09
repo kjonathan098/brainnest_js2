@@ -118,17 +118,6 @@ body {
 	overflow: hidden;
 }
 
-/* .weapon_container:hover {
-	outline: 5px goldenrod solid;
-	cursor: pointer;
-} */
-
-.weapon_container:hover {
-	outline: 0.2rem solid #fff;
-	/* padding: 0.4em; */
-	box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe,
-		0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
-}
 .weapon_container:hover img {
 	scale: 200%;
 }
