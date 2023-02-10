@@ -11,12 +11,29 @@ let operation = undefined
 let enter = false
 let decimal = false
 
+const snarkyReply = () => {
+	calculatorDisplay.innerText = ''
+	const snarkyReplyP = document.createElement('p')
+	snarkyReplyP.innerText = 'Im ashamed to be used by you'
+	calculatorDisplay.appendChild(snarkyReplyP)
+
+	setTimeout(() => {
+		calculatorDisplay.classList.toggle('active')
+	}, 500)
+
+	setTimeout(() => {
+		calculatorDisplay.classList.toggle('active')
+		calculatorDisplay.removeChild(snarkyReplyP)
+		logSpecialKey('Escape')
+	}, 7000)
+}
+
 const setDisplay = (element) => {
 	calculatorDisplay.innerText = element
 }
 
 const setDisplayFeedback = () => {
-	displayFeedback.style.backgroundColor = 'green'
+	displayFeedback.style.backgroundColor = '#505050'
 	setTimeout(() => {
 		displayFeedback.style.backgroundColor = 'transparent'
 	}, 100)
@@ -31,9 +48,8 @@ const subtract = (num1, num2) => {
 }
 
 const divide = (num1, num2) => {
-	console.log('hi')
 	if (num2 === 0) {
-		return 'Im ashemed to be used by you'
+		return false
 	}
 	return num1 / num2
 }
@@ -61,9 +77,6 @@ const operate = (operator, num1, num2) => {
 			break
 		default:
 			break
-	}
-	if (typeof result === 'string') {
-		return result
 	}
 	return result
 }
@@ -96,18 +109,20 @@ const logNumbers = (value) => {
 	return
 }
 
-const logOperation = (operator) => {
+const logOperation = (operatorValue) => {
+	enter = false
 	if (operation) {
 		const newValue = operate(operation, firstValue, secondValue)
 		firstValue = newValue.toString()
 		secondValue = undefined
-		operation = operator
+		operation = operatorValue
 		setDisplayFeedback()
 		setDisplay(firstValue)
 		return
 	}
+
 	setDisplayFeedback()
-	operation = operator
+	operation = operatorValue
 }
 
 const logSpecialKey = (value) => {
@@ -119,10 +134,12 @@ const logSpecialKey = (value) => {
 		return
 	} else if (value === 'Enter') {
 		if (!firstValue || !secondValue || !operation) {
+			console.log(firstValue, secondValue, operation)
+			console.log('error results')
 			return
 		}
-
 		const newValue = operate(operation, firstValue, secondValue)
+		if (!newValue) return snarkyReply()
 		firstValue = newValue.toString()
 		secondValue = undefined
 		operation = undefined
@@ -143,6 +160,7 @@ const logSpecialKey = (value) => {
 	setDisplay(newValue)
 	return
 }
+
 buttonsNumbers.forEach((button) => {
 	button.addEventListener('click', () => {
 		logNumbers(button.innerText)
