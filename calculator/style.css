@@ -135,6 +135,7 @@ body {
 	transition: right 10s;
 	position: absolute;
 	width: 100%;
+	white-space: nowrap;
 }
 
 #display.active p {

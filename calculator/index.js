@@ -4,6 +4,7 @@ const buttonsSpecials = document.querySelectorAll('.special')
 const decimalButton = document.getElementById('decimal')
 const calculatorDisplay = document.getElementById('display')
 const displayFeedback = document.getElementById('display_feedback')
+const jokeButton = document.getElementById('joke')
 
 let firstValue = undefined
 let secondValue = undefined
@@ -18,10 +19,10 @@ const decimalSwitcher = () => {
 	return
 }
 
-const snarkyReply = () => {
+const snarkyReply = (reply) => {
 	calculatorDisplay.innerText = ''
 	const snarkyReplyP = document.createElement('p')
-	snarkyReplyP.innerText = 'Im ashamed to be used by you'
+	snarkyReplyP.innerText = reply ? reply : 'Im ashamed to be used by you'
 	calculatorDisplay.appendChild(snarkyReplyP)
 
 	setTimeout(() => {
@@ -205,4 +206,10 @@ window.addEventListener('keyup', (e) => {
 	if (decimal.includes(e.key)) return decimalSwitcher()
 
 	return
+})
+
+jokeButton.addEventListener('click', () => {
+	const joke = tellAJoke()
+	console.log(joke)
+	snarkyReply(joke)
 })
