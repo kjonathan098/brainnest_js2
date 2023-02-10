@@ -4,12 +4,24 @@ const calculatorDisplay = document.getElementById('display')
 const buttonsSpecials = document.querySelectorAll('.special')
 const deleteLastNumber = document.getElementById('delete')
 const displayFeedback = document.getElementById('display_feedback')
+const decimalButton = document.getElementById('decimal')
 
 let firstValue = undefined
 let secondValue = undefined
 let operation = undefined
 let enter = false
 let decimal = false
+
+const logDecimal = (value) => {
+	if (decimal) return
+	else logNumbers(value)
+	decimal = true
+	return
+}
+
+decimalButton.addEventListener('click', () => {
+	logDecimal(decimalButton.innerText)
+})
 
 const snarkyReply = () => {
 	calculatorDisplay.innerText = ''
@@ -111,6 +123,7 @@ const logNumbers = (value) => {
 
 const logOperation = (operatorValue) => {
 	enter = false
+	decimal = false
 	if (operation) {
 		let newValue = operate(operation, firstValue, secondValue)
 		newValue = newValue.toFixed(2)
@@ -131,6 +144,7 @@ const logSpecialKey = (value) => {
 		firstValue = undefined
 		secondValue = undefined
 		operation = undefined
+		decimal = false
 		setDisplay(0)
 		return
 	} else if (value === 'Enter') {
@@ -143,6 +157,7 @@ const logSpecialKey = (value) => {
 		firstValue = newValue.toString()
 		secondValue = undefined
 		operation = undefined
+		decimal = false
 		enter = true
 		setDisplay(firstValue)
 		return
