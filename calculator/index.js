@@ -112,7 +112,8 @@ const logNumbers = (value) => {
 const logOperation = (operatorValue) => {
 	enter = false
 	if (operation) {
-		const newValue = operate(operation, firstValue, secondValue)
+		let newValue = operate(operation, firstValue, secondValue)
+		newValue = newValue.toFixed(2)
 		firstValue = newValue.toString()
 		secondValue = undefined
 		operation = operatorValue
@@ -134,12 +135,11 @@ const logSpecialKey = (value) => {
 		return
 	} else if (value === 'Enter') {
 		if (!firstValue || !secondValue || !operation) {
-			console.log(firstValue, secondValue, operation)
-			console.log('error results')
 			return
 		}
-		const newValue = operate(operation, firstValue, secondValue)
+		let newValue = operate(operation, firstValue, secondValue)
 		if (!newValue) return snarkyReply()
+		newValue = newValue.toFixed(2)
 		firstValue = newValue.toString()
 		secondValue = undefined
 		operation = undefined
