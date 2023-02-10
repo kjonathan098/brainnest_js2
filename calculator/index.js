@@ -1,10 +1,9 @@
 const buttonsNumbers = document.querySelectorAll('.number')
 const buttonsOperators = document.querySelectorAll('.operator')
-const calculatorDisplay = document.getElementById('display')
 const buttonsSpecials = document.querySelectorAll('.special')
-const deleteLastNumber = document.getElementById('delete')
-const displayFeedback = document.getElementById('display_feedback')
 const decimalButton = document.getElementById('decimal')
+const calculatorDisplay = document.getElementById('display')
+const displayFeedback = document.getElementById('display_feedback')
 
 let firstValue = undefined
 let secondValue = undefined
@@ -12,16 +11,12 @@ let operation = undefined
 let enter = false
 let decimal = false
 
-const logDecimal = (value) => {
+const decimalSwitcher = () => {
 	if (decimal) return
-	else logNumbers(value)
+	else logNumbers('.')
 	decimal = true
 	return
 }
-
-decimalButton.addEventListener('click', () => {
-	logDecimal(decimalButton.innerText)
-})
 
 const snarkyReply = () => {
 	calculatorDisplay.innerText = ''
@@ -194,14 +189,20 @@ buttonsSpecials.forEach((button) => {
 	})
 })
 
+decimalButton.addEventListener('click', () => {
+	decimalSwitcher()
+})
+
 window.addEventListener('keyup', (e) => {
-	const numberKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
+	const numberKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 	const operationKeys = ['+', '-', '/', '*', '%']
 	const specialKeys = ['Backspace', 'Escape', 'Enter']
+	const decimal = ['.']
 
 	if (numberKeys.includes(e.key)) return logNumbers(e.key)
 	if (operationKeys.includes(e.key)) return logOperation(e.key)
 	if (specialKeys.includes(e.key)) return logSpecialKey(e.key)
+	if (decimal.includes(e.key)) return decimalSwitcher()
 
 	return
 })
