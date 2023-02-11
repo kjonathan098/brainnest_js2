@@ -89,6 +89,10 @@ body {
 	background-color: #505050;
 }
 
+#joke {
+	background-color: #505050;
+}
+
 .button.special:active {
 	background-color: #3a3a3a;
 }
